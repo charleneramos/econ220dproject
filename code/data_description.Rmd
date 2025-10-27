@@ -1,29 +1,67 @@
 ---
-title: "data_description"
-output: pdf_document
-date: "2025-10-17"
+title: "Assignment 1: Data Description"
+author: 
+  - Charlene R. Ramos
+date: "October 30, 2025"
+
+output: 
+  pdf_document:
+    latex_engine: xelatex
+    number_sections: true
+    keep_tex: false
+    
+fontsize: 12pt
+geometry: margin=1.5in
+
+header-includes:
+  - \usepackage{amsmath, amssymb}
+  - \usepackage{booktabs}
+  - \usepackage{caption}      
+  - \usepackage{float}
+  - \usepackage{geometry}    
+  - \usepackage{lmodern}     
+  - \usepackage{placeins} 
+  - \usepackage{setspace}
+  - \doublespacing
+  - \usepackage{threeparttable}
+  - \usepackage{fancyhdr}
+  - \pagestyle{fancy}
+  - \fancyhf{} % clear default header/footer
+  - \cfoot{\thepage} % page number on bottom-right
+  - \renewcommand{\headrulewidth}{0pt}
 ---
 
 ```{r setup, include=FALSE}
+# install.packages(c("kableExtra","knitr","rmarkdown","tidyverse","tinytex","webshot2"))
+# tinytex::install_tinytex() 
+
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## R Markdown
+```{=latex}
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+\section{Introduction}
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+\section{Data}
 
-```{r cars}
-summary(cars)
+\section{Methodology \& Results}
+
+\subsection{Vector Autoregression and Reduced-Form Impulse Response Function}
+
+\subsection{Bayesian Methods}
+
+\subsection{Stationarity and Structural Breaks}
+
+\section{Conclusion}
+
+\section{References}
+
 ```
 
-## Including Plots
-
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
-```
-
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r render, include=FALSE, eval=FALSE}
+rmarkdown::render(
+  "/Users/charleneramos/Documents/Git/econ220dproject/code/data_description.Rmd",
+  output_format = "pdf_document",
+  output_dir = "/Users/charleneramos/Documents/Git/econ220dproject/output/"
+)
+``
