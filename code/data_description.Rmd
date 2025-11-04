@@ -1,7 +1,7 @@
 ---
 title: "Assignment 1: Data Description"
 author: "Charlene R. Ramos"
-date: "October 30, 2025"
+date: "November 4, 2025"
 output: 
   pdf_document:
     latex_engine: xelatex
@@ -21,13 +21,17 @@ header-includes:
   - \usepackage{lmodern}     
   - \usepackage{placeins} 
   - \usepackage{setspace}
+  - \usepackage{etoolbox}
   - \usepackage{threeparttable}
+  - \usepackage{adjustbox}
   - \pagestyle{fancy}
   - \cfoot{\thepage} 
-  - \fancyhf{} 
-  - \doublespacing
+  - \fancyhf{} % clear header and footer
+  - \fancyfoot[C]{\thepage} % page number in center bottom
   - \renewcommand{\headrulewidth}{0pt}
+  - \renewcommand{\footrulewidth}{0pt}
   - \setcitestyle{authoryear,round,aysep={}} 
+
 ---
 
 ```{r setup, include=FALSE}
@@ -41,38 +45,450 @@ knitr::opts_chunk$set(echo = TRUE)
 
 \section{Introduction}
 
-Test \citep{burgess2005philippines}.
+\vspace{-0.5em}
+
+\doublespacing Economic growth, foreign direct investment (FDI), official development 
+assistance (ODA), and remittances are key channels through which external 
+financial flows influence domestic development. Economists study these 
+variables to understand how international capital movements affect output, 
+investment, and household welfare. 
+Remittances, in particular, stabilize consumption and support growth by 
+providing steady income to households \citep{burgess2005philippines, salahuddin_gow2015}, 
+while FDI and ODA promote productivity and infrastructure 
+development \citep{dakila_claveria2007, tuanoamador_bayangos_romarate_maliwat2022}. 
+Beyond these direct effects, remittances also influence the \textit{real exchange rate} 
+by increasing demand for domestic goods and services, which can raise local 
+prices relative to foreign prices. This leads to a \textit{real appreciation}, making 
+exports less competitive and imports cheaper---a mechanism often described 
+as a ``Dutch disease'' effect \citep{carare_celis_hadzivaskov_morito2025}. Understanding these channels 
+is essential for assessing how external inflows shape both short-term 
+macroeconomic stability and long-run growth prospects.
+
+\singlespacing
 
 \section{Data}
 
-  \begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{/Users/charleneramos/Documents/Git/econ220dproject/output/plot_pop.png}
-  \end{figure}
-    
-  \begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{/Users/charleneramos/Documents/Git/econ220dproject/output/plot_gdp.png}
+\vspace{-0.5em}
+
+\doublespacing This analysis uses annual World Development Indicators for the Philippines 
+from 1977 through 2023 \citep{worldbank_wdi_r}. 
+The main series used in the paper are: total population, gross domestic 
+product (GDP, current local currency units), net inflows of foreign direct 
+investment (FDI, percent of GDP or level as noted in the figure captions), 
+official development assistance (ODA), and personal remittances. 
+\begin{itemize}
+
+\doublespacing
+
+    \item \textbf{GDP} displays a clear upward trend with notable cyclical 
+    downturns and inflection points (for example, around the late 1990s, the 
+    2008--09 global financial shock, and the 2020 pandemic year), suggesting 
+    persistent growth combined with episodic shocks that are relevant for 
+    impulse-response analysis.
+
+\singlespacing
+
+  \begin{figure}[H]
+     \centering
+  \includegraphics[width=0.6\textwidth]{/Users/charleneramos/Documents/Git/econ220dproject/output/plot_gdp.png}
+          \caption{Philippines gross domestic product, 1977–2023}
   \end{figure}
 
-  \begin{figure}
+\doublespacing
+
+    \item \textbf{FDI} is considerably more volatile than GDP: it exhibits 
+    large year-to-year swings, occasional spikes and troughs, and episodes of 
+    both co-movement and divergence with GDP. This volatility motivates 
+    treating capital flows separately and examining their dynamic responses 
+    to output disturbances.
+
+\singlespacing  
+
+  \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{/Users/charleneramos/Documents/Git/econ220dproject/output/plot_fdi.png}
+  \includegraphics[width=0.6\textwidth]{/Users/charleneramos/Documents/Git/econ220dproject/output/plot_fdi.png}                   \caption{Philippines Foreign direct investment net inflows, 1977–2023}
   \end{figure}
+
+\end{itemize}    
+
+\vspace{-0.5em}
 
 \section{Methodology \& Results}
 
+\vspace{-0.5em}
+
 \subsection{Vector Autoregression and Reduced-Form Impulse Response Function}
+
+\vspace{-0.5em}
+
+\doublespacing A vector autoregression (VAR) models a set of variables jointly by regressing 
+each variable on its own lags and on the lags of the other variables. Written 
+compactly, 
+\[
+y_t = c + A_1 y_{t-1} + \dots + A_p y_{t-p} + u_t,
+\]
+the VAR is a flexible reduced-form framework that summarizes how shocks 
+propagate through a small macroeconomic system without imposing strong 
+structural restrictions. 
+For this application, we use growth rates (to improve stationarity), select the 
+lag order using information criteria (AIC/BIC) and stability diagnostics, estimate 
+each equation by OLS, and compute impulse-response functions (IRFs) up to 
+a 10-year horizon by iterating the estimated companion form forward. 
+Because the reduced-form residuals are contemporaneously correlated, we 
+orthogonalize shocks using a Cholesky decomposition of the residual covariance 
+matrix---placing GDP first so that the reported IRFs describe the dynamic effect 
+of an unexpected GDP shock that can affect other variables within the same 
+year but not vice versa---and quantify uncertainty with bootstrap (or Monte 
+Carlo) confidence bands constructed from repeated re-sampling. 
+Key assumptions include weak stationarity of the transformed series, linearity 
+of dynamics, and that the chosen ordering and lag structure capture the relevant 
+timing. Diagnostics for residual autocorrelation, system stability (eigenvalues), 
+and robustness to alternative orderings are reported elsewhere. 
+
+Table 1 reports the VAR coefficients (own- and cross-lag effects 
+and significance), which indicate persistence and short-run predictive links that 
+generate the IRFs. 
+
+\singlespacing
+
+ \begin{table}[H]
+  \noindent
+  \centering
+  \small
+  \begin{threeparttable}
+  \caption{VAR coefficients}
+  \label{tab:var_first4}
+  \setlength{\tabcolsep}{8pt}
+  \renewcommand{\arraystretch}{1.1}
+  \begin{tabular}{l c c c c}
+  \toprule
+   & \multicolumn{4}{c}{Dependent variable} \\
+   \cmidrule(lr){2-5}
+   & $gdp_t$ & $fdi_t$ & $oda_t$ & $remit_t$ \\
+   \centering & (1) & (2) & (3) & (4) \\
+  \midrule
+  $c$                 & $`r var_table[var_table$term == 'const', 'ggdp']`$      
+                      & $`r var_table[var_table$term == 'const', 'gfdi']`$ 
+                      & $`r var_table[var_table$term == 'const', 'goda']`$      
+                      & $`r var_table[var_table$term == 'const', 'gremit']`$ \\
+            
+  $gdp_{t-1}$         & $`r var_table[var_table$term == 'ggdp.l1', 'ggdp']`$      
+                      & $`r var_table[var_table$term == 'ggdp.l1', 'gfdi']`$ 
+                      & $`r var_table[var_table$term == 'ggdp.l1', 'goda']`$      
+                      & $`r var_table[var_table$term == 'ggdp.l1', 'gremit']`$ \\
+                
+  $fdi_{t-1}$         & $`r var_table[var_table$term == 'gfdi.l1', 'ggdp']`$      
+                      & $`r var_table[var_table$term == 'gfdi.l1', 'gfdi']`$ 
+                      & $`r var_table[var_table$term == 'gfdi.l1', 'goda']`$      
+                      & $`r var_table[var_table$term == 'gfdi.l1', 'gremit']`$ \\
+                      
+  $oda_{t-1}$         & $`r var_table[var_table$term == 'goda.l1', 'ggdp']`$      
+                      & $`r var_table[var_table$term == 'goda.l1', 'gfdi']`$ 
+                      & $`r var_table[var_table$term == 'goda.l1', 'goda']`$      
+                      & $`r var_table[var_table$term == 'goda.l1', 'gremit']`$ \\
+                      
+  $remit_{t-1}$       & $`r var_table[var_table$term == 'gremit.l1', 'ggdp']`$      
+                      & $`r var_table[var_table$term == 'gremit.l1', 'gfdi']`$ 
+                      & $`r var_table[var_table$term == 'gremit.l1', 'goda']`$      
+                      & $`r var_table[var_table$term == 'gremit.l1', 'gremit']`$ \\
+                    
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[flushleft]
+  \footnotesize
+  \item \textbf{Notes.} Based on OLS regressions estimated for variables measured in growth rates
+  with left-hand variable in columns (1–4) running from $t = 1977$ to $2023$.
+  The symbol * denotes statistical significance at the 10\% level, ** at 5\%, and *** at 1\%.
+  \end{tablenotes}
+  \end{threeparttable}
+  \end{table}
+
+\doublespacing Table 2 presents the impulse-response function (IRF) point 
+estimates at horizons $h = 0, \ldots, 10$ (along with corresponding uncertainty 
+bands), illustrating both the magnitude and duration of each variable's dynamic 
+response to shocks within the VAR system.
+
+\singlespacing
+
+  \begin{table}[H]
+  \centering
+  \small
+  \begin{threeparttable}
+  \caption{Impulse responses}
+  \label{tab:var_first4}
+  \setlength{\tabcolsep}{8pt}
+  \renewcommand{\arraystretch}{1.1}
+  \begin{tabular}{l c c c c}
+  \toprule
+  Horizon & \multicolumn{3}{c}{$\frac{\partial \mathbb{P}(variable_t \mid 1, \mathbf{y}_{t-h}, \ldots, \mathbf{y}_{t-h-m+1})}
+     {\partial gdp_{t-h}}$}  \\
+   \cmidrule(lr){2-4} 
+   $h$ & $fdi_t$ & $oda_t$ & $remit_t$ \\
+  & (1) & (2) & (3) \\
+  \midrule
+  0
+                      & $`r irf_table[1, 'gfdi']`$
+                      & $`r irf_table[1, 'goda']`$
+                      & $`r irf_table[1, 'gremit']`$ \\
+            
+  1
+                      & $`r irf_table[2, 'gfdi']`$
+                      & $`r irf_table[2, 'goda']`$
+                      & $`r irf_table[2, 'gremit']`$ \\
+                
+  2
+                      & $`r irf_table[3, 'gfdi']`$
+                      & $`r irf_table[3, 'goda']`$
+                      & $`r irf_table[3, 'gremit']`$ \\
+                      
+  3
+                      & $`r irf_table[4, 'gfdi']`$
+                      & $`r irf_table[4, 'goda']`$
+                      & $`r irf_table[4, 'gremit']`$ \\
+                      
+  4
+                      & $`r irf_table[5, 'gfdi']`$
+                      & $`r irf_table[5, 'goda']`$
+                      & $`r irf_table[5, 'gremit']`$ \\
+                      
+  5
+                      & $`r irf_table[6, 'gfdi']`$
+                      & $`r irf_table[6, 'goda']`$
+                      & $`r irf_table[6, 'gremit']`$ \\
+                      
+  6
+                      & $`r irf_table[7, 'gfdi']`$
+                      & $`r irf_table[7, 'goda']`$
+                      & $`r irf_table[7, 'gremit']`$ \\
+                      
+  7
+                      & $`r irf_table[8, 'gfdi']`$
+                      & $`r irf_table[8, 'goda']`$
+                      & $`r irf_table[8, 'gremit']`$ \\
+                      
+  8
+                      & $`r irf_table[9, 'gfdi']`$
+                      & $`r irf_table[9, 'goda']`$
+                      & $`r irf_table[9, 'gremit']`$ \\
+                      
+   9
+                      & $`r irf_table[10, 'gfdi']`$
+                      & $`r irf_table[10, 'goda']`$
+                      & $`r irf_table[10, 'gremit']`$\\
+                      
+   10
+                      & $`r irf_table[11, 'gfdi']`$
+                      & $`r irf_table[11, 'goda']`$
+                      & $`r irf_table[11, 'gremit']`$\\
+                      
+  \bottomrule
+  \end{tabular}
+  \begin{tablenotes}[flushleft]
+  \footnotesize
+  \item \textbf{Notes.} The symbol * denotes statistical significance at the 10\% level, ** at 5\%, and *** at 1\%.
+  \end{tablenotes}
+  \end{threeparttable}
+  \end{table}
+
+\doublespacing Figure 4 displays the same impulse-response functions (IRFs) 
+with shaded confidence bands, allowing readers to visually assess the timing, 
+direction, and statistical precision of the estimated dynamic responses.
+
+\singlespacing
+ 
+  \begin{figure}[H]
+    \centering
+      \includegraphics[width=\textwidth]{/Users/charleneramos/Documents/Git/econ220dproject/output/plot_irf.png}
+        \caption{Reduced-form impulse response functions}
+  \end{figure}
 
 \subsection{Bayesian Methods}
 
+\vspace{-0.5em}
+
+\doublespacing Bayesian vector autoregression (BVAR) extends the VAR framework by combining the likelihood
+from the time-series model with prior beliefs about the coefficients to produce a posterior
+distribution for all model parameters. Intuitively, the Bayesian approach guards against
+overfitting in small samples by shrinking coefficient estimates toward sensible values
+(for example, toward zero for cross-variable lags and toward a random-walk unit for own
+lags) while still letting the data update those beliefs. Formally, if the reduced-form VAR
+is $y_t = c + A_1 y_{t-1} + \dots + A_p y_{t-p} + u_t$ with $u_t \sim N(0, \Sigma_u)$,
+a BVAR specifies a prior $p(c, \{A_i\}, \Sigma_u)$ and computes the posterior
+$p(c, \{A_i\}, \Sigma_u \mid \text{data}) \propto p(\text{data} \mid c, \{A_i\}, \Sigma_u)\, p(c, \{A_i\}, \Sigma_u)$.
+The posterior neatly summarizes parameter uncertainty and leads directly to posterior
+predictive distributions and credible intervals for impulse responses.
+
+We use a Minnesota-style prior (tight shrinkage on cross-coefficients, looser on own lags)
+because our annual sample is modest relative to the number of parameters. Key implementation
+details are: (1) data are expressed in growth rates as in the frequentist VAR; (2) lag length
+is chosen by information criteria and stability diagnostics before estimating the BVAR; (3)
+the overall tightness and relative shrinkage hyperparameters are selected by empirical rules
+and checked for sensitivity; (4) posterior draws are obtained via the conjugate posterior or
+MCMC sampling (several thousand retained draws after burn-in) and monitored for convergence;
+(5) for each posterior draw we compute orthogonalized impulse responses using the same
+Cholesky ordering as the reduced-form VAR (GDP first) so that Bayesian IRFs are directly
+comparable to the frequentist IRFs; and (6) credible bands are formed by taking quantiles of
+the IRFs across posterior draws (for example, the 2.5th and 97.5th percentiles for 95% bands).
+
+The BVAR differs from the OLS VAR primarily through shrinkage: it reduces sampling variance
+(smoother IRFs and narrower bands) while allowing the data to dominate where information is strong.
+We report posterior diagnostics (trace plots, effective sample sizes) and stability checks for the
+companion matrix across draws to ensure robustness.Table 3 presents posterior summaries for coefficients 
+and related quantities (posterior mean, median, posterior standard deviation, credible intervals,
+and the posterior probability a coefficient exceeds zero). 
+
+\singlespacing
+
+```{r bvar_table, echo=FALSE, results='asis', eval=TRUE}
+# Include BVAR posterior coefficient table: prefer prepared LaTeX fragment, else build from CSV
+frag <- file.path('/Users/charleneramos/Documents/Git/econ220dproject/output/bvar_table.Rmd')
+csvf <- file.path('/Users/charleneramos/Documents/Git/econ220dproject/output/bvar__sum.csv')
+if (file.exists(frag)) {
+  cat(readLines(frag), sep = '\n')
+} else if (file.exists(csvf)) {
+  tab <- read.csv(csvf, stringsAsFactors = FALSE)
+  # condensed table: small font, reduced spacing, and auto-scale to text width
+  cat('\\begin{table}[H]\\centering\\begin{threeparttable}\\caption{Bayesian VAR posterior estimates}\\n')
+  cat('\\label{tab:bvar_coef_post}\\n')
+  cat('{\\setlength{\\tabcolsep}{5pt}\\renewcommand{\\arraystretch}{0.95}\\small\\begin{adjustbox}{max width=\\textwidth}\\begin{tabular}{llrrrcr}\\toprule\\n}')
+  cat(' & Regressor & Mean & Median & SD & 95\\% CI & Pr($>$0) \\\\n')
+  cat('\\midrule\\n')
+  eqs <- unique(tab$equation)
+  escape_tex <- function(s) {
+    s <- as.character(s)
+    s <- gsub('\\\\', '\\\\\\\\', s)
+    s <- gsub('\\$', '\\\\$', s)
+    s <- gsub('%', '\\\\%', s)
+    s <- gsub('&', '\\\\&', s)
+    s <- gsub('#', '\\\\#', s)
+    s <- gsub('_', '\\\\_', s)
+    s <- gsub('\\{', '\\\\{', s)
+    s <- gsub('\\}', '\\\\}', s)
+    s <- gsub('\\^', '\\\\^', s)
+    s <- gsub('~', '\\\\textasciitilde{}', s)
+    s
+  }
+    prettify_regressor <- function(s) { 
+    s0 <- as.character(s)
+    if (tolower(s0) %in% c('const','intercept')) return('Intercept')
+    m <- regexpr('^(.*)_lag(\\\\d+)$', s0, perl = TRUE)
+    if (m[1] != -1) {
+      varname <- sub('^(.*)_lag(\\\\d+)$', '\\1', s0, perl = TRUE)
+      lagnum  <- sub('^(.*)_lag(\\\\d+)$', '\\2', s0, perl = TRUE)
+      out <- paste0(varname, ' (lag ', lagnum, ')')
+    } else {
+      out <- gsub('_', ' ', s0)
+    }
+    out
+  }
+  for (m in eqs) {
+    # group rows by equation but do not print a bold equation header row
+    subm <- tab[tab$equation == m, , drop = FALSE]
+    for (i in seq_len(nrow(subm))) {
+      r <- subm[i, ]
+  cat(sprintf('%s & %s & %.4f & %.4f & %.4f & (%.4f, %.4f) & %.3f \\\n',
+        escape_tex(r$equation), escape_tex(as.character(r$regressor)), r$mean, r$median, r$sd, r$q025, r$q975, r$Pr_pos))
+    }
+    cat('\\midrule\\n')
+  }
+  cat('\\end{tabular}\\end{adjustbox}}\\n')
+  cat('\\end{threeparttable}\\end{table}\\n')
+} else {
+  cat('\\textit{BVAR posterior table not found. Run `code/wdi_clean.R` to generate posterior draws and tables.}\\n')
+}
+```
+
 \subsection{Stationarity and Structural Breaks}
 
-\section{Conclusion}
+\vspace{-0.5em}
+
+\doublespacing Stationarity and structural breaks are central for time-series inference because nonstationary
+data or unmodeled breaks can produce spurious relationships and misleading impulse
+responses. We therefore apply both unit-root tests and endogenous break-detection methods
+and report summaries in Table 4.
+
+Unit-root testing. We use two complementary tests for stationarity: the augmented Dickey–Fuller
+(ADF) test and the Kwiatkowski–Phillips–Schmidt–Shin (KPSS) test. These tests have
+opposite null hypotheses, which helps guard against misleading conclusions when one test
+alone is inconclusive. The ADF test has the null of a unit root (nonstationarity) and the
+alternative of stationarity; we estimate the ADF regression with an intercept and, where
+appropriate, a deterministic time trend and select the lag length via information criteria
+(AIC/BIC) and practical residual diagnostics. The KPSS test has the null of stationarity and
+the alternative of a unit root (or trend-stationarity depending on the chosen specification);
+we report KPSS statistics using a Newey–West bandwidth chosen by the usual automatic
+selection rules. When the ADF fails to reject and the KPSS rejects the null of stationarity,
+the indicators together provide evidence consistent with nonstationarity; when ADF rejects
+and KPSS does not, we interpret that as evidence in favor of stationarity.
+
+Structural-break detection. Standard unit-root tests can be biased in the presence of
+structural breaks, so we complement them with break-aware procedures. We apply the
+Zivot–Andrews test to allow a single endogenously determined structural break in either
+the level or trend; for multiple breaks we use the Bai–Perron approach implemented via the
+`strucchange::breakpoints` routine, setting a trimming parameter (commonly 0.10–0.15 of the
+sample) and selecting the number of breaks with BIC and sequential F-tests. For each detected
+break we report the estimated break years in Table 4. Implementation is done in R using
+`urca::ur.df` for ADF variants, `tseries::kpss.test` for KPSS, `urca` or the `zoo`/`urca`
+implementations for Zivot–Andrews, and `strucchange::breakpoints` for multiple
+break detection; all test choices and tuning parameters are recorded in the code used to
+generate the output.
+
+Why these choices matter for the VAR. VAR estimation and the validity of impulse responses
+rely on (weak) stationarity of the series. Nonstationary series can cause biased parameter
+estimates and invalid asymptotic inference. When variables are I(1) but cointegrated, a
+vector error-correction model (VECM) is the appropriate representation; when series are
+nonstationary without cointegration, first-differencing removes stochastic trends but also
+changes the interpretation of coefficients (short-run dynamics rather than levels). Structural
+breaks — for example large policy shifts or crisis years — can mimic nonstationarity or
+produce shifts in dynamics; if breaks are present we either include break dummies, estimate
+the VAR over sub-samples, or use methods that allow for time-varying parameters as a
+robustness check. In this paper, because the main flow variables are analyzed in growth rates
+(log differences) and because break tests identify only a small number of discrete breaks, our
+primary VAR specifications use growth rates while we report break years and run robustness
+specifications that include break dummies or split-sample estimations when appropriate.
+
+Table 4 summarizes test statistics and break dates: ADF statistic and p-value,
+KPSS statistic and p-value, the number of Bai–Perron breaks found, and the estimated break
+years. For a non-specialist, the practical guidance is: (i) if ADF indicates stationarity and
+KPSS does not reject stationarity, we proceed with level-based analysis; (ii) if ADF fails to
+reject a unit root while KPSS rejects stationarity, we treat the series as nonstationary and
+work with differences (or investigate cointegration); and (iii) if breaks are detected in Table 4,
+we examine whether including break dummies or estimating separate regimes changes the
+estimated IRFs materially — if so, the results are reported as robustness checks in the
+accompanying output.
+
+\singlespacing
 
 ```
 
-
+```{r stationarity_table, echo=FALSE, results='asis', eval=TRUE}
+# Include prepared LaTeX fragment for stationarity/breaks table if available,
+# otherwise fall back to building a simple LaTeX table from the CSV.
+frag_ts <- file.path('/Users/charleneramos/Documents/Git/econ220dproject/output/test_sum_table.Rmd')
+csvf_ts <- file.path('/Users/charleneramos/Documents/Git/econ220dproject/output/test_sum.csv')
+if (file.exists(frag_ts)) {
+  cat(readLines(frag_ts), sep = '\n')
+} else if (file.exists(csvf_ts)) {
+  tab <- read.csv(csvf_ts, stringsAsFactors = FALSE)
+  cat('\\begin{table}[H]\\centering\\small\\caption{Stationarity tests and structural breaks}\\label{tab:stationarity_breaks}\\begin{adjustbox}{max width=\\textwidth}\\begin{tabular}{lrrrrcr}\\toprule\\n')
+  cat('Variable & ADF stat & ADF p-val & KPSS stat & KPSS p-val & # breaks & Break years \\\\n+')
+  cat('\\midrule\\n')
+  for (i in seq_len(nrow(tab))) {
+    r <- tab[i, ]
+    var <- r$variable
+    adf_stat <- ifelse(is.na(r$adf_stat), 'NA', sprintf('%.4f', as.numeric(r$adf_stat)))
+    adf_p <- ifelse(is.na(r$adf_pval), 'NA', sprintf('%.3f', as.numeric(r$adf_pval)))
+    kpss_stat <- ifelse(is.na(r$kpss_stat), 'NA', sprintf('%.4f', as.numeric(r$kpss_stat)))
+    kpss_p <- ifelse(is.na(r$kpss_pval), 'NA', sprintf('%.3f', as.numeric(r$kpss_pval)))
+    n_breaks <- ifelse(is.na(r$n_breaks), '0', as.character(r$n_breaks))
+    breaks_raw <- as.character(r$break_years)
+    breaks_fmt <- ifelse(is.na(breaks_raw) || breaks_raw == 'NA', 'NA', breaks_raw)
+    cat(sprintf('%s & %s & %s & %s & %s & %s & %s \\\\n+', var, adf_stat, adf_p, kpss_stat, kpss_p, n_breaks, breaks_fmt))
+  }
+  cat('\\bottomrule\\n\\end{tabular}\\end{adjustbox}\\end{table}\\n')
+} else {
+  cat('\\textit{Stationarity summary not found. Run `code/wdi_clean.R` to generate tests and tables.}\\n')
+}
+```
 
 ```{r render, include=FALSE, eval=FALSE}
 rmarkdown::render(
@@ -80,4 +496,4 @@ rmarkdown::render(
   output_format = "pdf_document",
   output_dir = "/Users/charleneramos/Documents/Git/econ220dproject/output/"
 )
-``
+```
