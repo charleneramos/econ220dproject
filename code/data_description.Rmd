@@ -47,22 +47,32 @@ knitr::opts_chunk$set(echo = TRUE)
 
 \vspace{-0.5em}
 
-\doublespacing Economic growth, foreign direct investment (FDI), official development 
-assistance (ODA), and remittances are key channels through which external 
-financial flows influence domestic development. Economists study these 
-variables to understand how international capital movements affect output, 
-investment, and household welfare. 
-Remittances, in particular, stabilize consumption and support growth by 
-providing steady income to households \citep{burgess2005philippines, salahuddin_gow2015}, 
-while FDI and ODA promote productivity and infrastructure 
-development \citep{dakila_claveria2007, tuanoamador_bayangos_romarate_maliwat2022}. 
-Beyond these direct effects, remittances also influence the \textit{real exchange rate} 
-by increasing demand for domestic goods and services, which can raise local 
-prices relative to foreign prices. This leads to a \textit{real appreciation}, making 
-exports less competitive and imports cheaper---a mechanism often described 
-as a ``Dutch disease'' effect \citep{carare_celis_hadzivaskov_morito2025}. Understanding these channels 
-is essential for assessing how external inflows shape both short-term 
-macroeconomic stability and long-run growth prospects.
+\doublespacing
+
+External financial flows such as foreign direct investment (FDI), official development 
+assistance (ODA), and personal remittances are central to understanding how outside 
+funding advances development in the Philippines. As an emerging economy, 
+the Philippines depends on these inflows to finance investment, create employment opportunities, 
+and support household welfare. Each channel affects the economy through distinct but interconnected mechanisms: 
+
+\begin{enumerate}
+  \item FDI expands productive capacity and facilitates technology transfer;
+  \item ODA supports infrastructure and strengthens institutions; and, 
+  \item Remittances raise household income, stimulating consumption and reducing poverty.
+\end{enumerate} 
+
+\citep{burgess2005philippines, salahuddin_gow2015, dakila_claveria2007, 
+tuanoamador_bayangos_romarate_maliwat2022} 
+
+Beyond these direct effects, remittances exert broader macroeconomic 
+influence through the real exchange rate. As remittance inflows increase 
+domestic purchasing power, demand for non-tradable goods and services elevates 
+relative to tradables, driving up local prices. This can make exports less attractive and shift resources 
+toward non-tradable sectors---a dynamic described as the ``Dutch disease'' effect 
+\citep{carare_celis_hadzivaskov_morito2025}. For a developing economy like 
+the Philippines, which balances competitiveness in export-oriented sectors with reliance 
+on external income sources, understanding these tradeoffs is crucial for 
+evaluating short-term growth and long-run prosperity.
 
 \singlespacing
 
@@ -70,48 +80,66 @@ macroeconomic stability and long-run growth prospects.
 
 \vspace{-0.5em}
 
-\doublespacing This analysis uses annual World Development Indicators for the Philippines 
-from 1977 through 2023 \citep{worldbank_wdi_r}. 
-The main series used in the paper are: total population, gross domestic 
-product (GDP, current local currency units), net inflows of foreign direct 
-investment (FDI, percent of GDP or level as noted in the figure captions), 
-official development assistance (ODA), and personal remittances. 
+\doublespacing This analysis uses annual data from the World Bank's Development Indicators on the 
+Philippines from 1977 through 2023 \citep{worldbank_wdi_r}. The series of interest are:
+
+
 \begin{itemize}
+  \item Total population
+  \item Gross domestic product (GDP)
+  \item Net inflows of foreign direct investment (FDI)
+  \item Official development assistance (ODA) 
+  \item Personal remittances 
+\end{itemize}
 
-\doublespacing
-
-    \item \textbf{GDP} displays a clear upward trend with notable cyclical 
-    downturns and inflection points (for example, around the late 1990s, the 
-    2008--09 global financial shock, and the 2020 pandemic year), suggesting 
-    persistent growth combined with episodic shocks that are relevant for 
-    impulse-response analysis.
+\hspace{2em}\textbf{Population.} Although the Philippines continues to experience positive population growth, the 
+rate of increase has declined steadily over the past several decades. This 
+demographic transition reflects broader structural changes in the economy 
+and society. Fertility rates have fallen due to greater access to education, 
+women’s labor force participation, and the expansion of family 
+planning programs. Rising living costs and changing social norms in urban 
+areas have further reinforced preferences for smaller families. International 
+migration has also moderated domestic population growth, as many working-age 
+Filipinos delay or limit childbearing while employed abroad.
 
 \singlespacing
 
   \begin{figure}[H]
-     \centering
-  \includegraphics[width=0.6\textwidth]{/Users/charleneramos/Documents/Git/econ220dproject/output/plot_gdp.png}
-          \caption{Philippines gross domestic product, 1977–2023}
+    \centering
+      \includegraphics[width=0.8\textwidth]{/Users/charleneramos/Documents/Git/econ220dproject/output/plot_pop.png}
+        \caption{Population growth rate, 1977–2023}
   \end{figure}
 
 \doublespacing
 
-    \item \textbf{FDI} is considerably more volatile than GDP: it exhibits 
-    large year-to-year swings, occasional spikes and troughs, and episodes of 
-    both co-movement and divergence with GDP. This volatility motivates 
-    treating capital flows separately and examining their dynamic responses 
-    to output disturbances.
+\hspace{2em}\textbf{GDP.} The inconsistent trend highlights the sensitivity of Philippine income growth to external shocks (Asian Financial Crisis, Great Recession, and COVID-19) 
+as well as political (i.e., weak governance and corruption) and structural factors (e.g., high income inequality and large informal sector). 
+However, the recurring rebounds demonstrate a degree of economic resilience supported by remittances, service-sector expansion, and macroeconomic reforms over time.
+
+\singlespacing
+
+  \begin{figure}[H]
+    \centering
+      \includegraphics[width=0.8\textwidth]{/Users/charleneramos/Documents/Git/econ220dproject/output/plot_gdp.png}
+        \caption{Per-capita GDP growth rate, 1977–2023}
+  \end{figure}
+
+\doublespacing
+
+\hspace{2em}\textbf{FDI and ODA.} The annual growth rates of FDI and ODA as percentages of GDP are also highly erratic. 
+FDI exhibits sharp year-to-year swings, including a major surge in the 1980s and contractions during 
+periods of uncertainty, such as in 2008–2009. ODA flows are more stable but exhibit moderate fluctuations linked to project 
+cycles, donor priorities, and international conditions. Overall, FDI displays greater short-term volatility, 
+while ODA reflects steadier, policy-driven financing patterns. This motivates treating capital flows separately when 
+examining their dynamic responses to output disturbances.
 
 \singlespacing  
 
   \begin{figure}[H]
     \centering
-  \includegraphics[width=0.6\textwidth]{/Users/charleneramos/Documents/Git/econ220dproject/output/plot_fdi.png}                   \caption{Philippines Foreign direct investment net inflows, 1977–2023}
+      \includegraphics[width=0.8\textwidth]{/Users/charleneramos/Documents/Git/econ220dproject/output/plot_flows.png}                  
+        \caption{External financial flows as percentage of GDP, 1977–2023}
   \end{figure}
-
-\end{itemize}    
-
-\vspace{-0.5em}
 
 \section{Methodology \& Results}
 
@@ -121,40 +149,62 @@ official development assistance (ODA), and personal remittances.
 
 \vspace{-0.5em}
 
-\doublespacing A vector autoregression (VAR) models a set of variables jointly by regressing 
-each variable on its own lags and on the lags of the other variables. Written 
-compactly, 
+\doublespacing 
+A vector autoregression (VAR) is a statistical model of the
+joint dynamics among multiple time-series variables without presuming a 
+specific causal structure. In a VAR, each variable is 
+expressed as a linear function of its own past values and the past values of 
+all other variables in the system. Formally, the model can be written as 
 \[
-y_t = c + A_1 y_{t-1} + \dots + A_p y_{t-p} + u_t,
+y_t = c + A_1 y_{t-1} + A_2 y_{t-2} + \dots + A_p y_{t-p} + u_t,
 \]
-the VAR is a flexible reduced-form framework that summarizes how shocks 
-propagate through a small macroeconomic system without imposing strong 
-structural restrictions. 
-For this application, we use growth rates (to improve stationarity), select the 
-lag order using information criteria (AIC/BIC) and stability diagnostics, estimate 
-each equation by OLS, and compute impulse-response functions (IRFs) up to 
-a 10-year horizon by iterating the estimated companion form forward. 
-Because the reduced-form residuals are contemporaneously correlated, we 
-orthogonalize shocks using a Cholesky decomposition of the residual covariance 
-matrix---placing GDP first so that the reported IRFs describe the dynamic effect 
-of an unexpected GDP shock that can affect other variables within the same 
-year but not vice versa---and quantify uncertainty with bootstrap (or Monte 
-Carlo) confidence bands constructed from repeated re-sampling. 
-Key assumptions include weak stationarity of the transformed series, linearity 
-of dynamics, and that the chosen ordering and lag structure capture the relevant 
-timing. Diagnostics for residual autocorrelation, system stability (eigenvalues), 
-and robustness to alternative orderings are reported elsewhere. 
+where $y_t$ is a vector of endogenous variables, $A_i$ are coefficient matrices 
+capturing lagged relationships, $c$ is a vector of intercepts, and $u_t$ is a 
+vector of innovations or shocks. This specification allows the data to reveal 
+how variables interact dynamically over time, with minimal theoretical 
+restrictions on the direction or magnitude of effects. 
 
-Table 1 reports the VAR coefficients (own- and cross-lag effects 
+\hspace{2em} The VAR approach is particularly well suited for macroeconomic applications 
+when theory may not specify exact relationships between variables. It provides a 
+reduced-form representation that quantifies how shocks to one variable influence 
+others over subsequent periods. In this study, the VAR helps identify how 
+disturbances in foreign direct investment (FDI), official development 
+assistance (ODA), and remittances transmit to GDP growth over a multi-year horizon. 
+The main assumptions underlying the VAR include weak 
+stationarity of the transformed data, linearity of relationships among 
+variables, and correct specification of lag length and ordering. When these 
+conditions are satisfied, the VAR offers a powerful yet flexible empirical 
+framework for examining the propogation of macroeconomic shocks and the 
+temporal linkages among key economic variables.
+
+\hspace{2em} Implementation proceeds in several steps. First, the time-series data are 
+transformed into growth rates (log differences) to improve stationarity, ensuring that 
+the mean and variances of each series remain constant over time. 
+The appropriate lag length ($p$) is selected using information criteria such as the Akaike Information 
+Criterion (AIC) and the Bayesian Information Criterion (BIC). From there, each equation in the system is estimated by 
+ordinary least squares (OLS). Impulse-response functions (IRFs) are then derived from 
+the estimated VAR to trace the dynamic effect of one-time shocks on the system’s variables. 
+These responses are computed by iterating the VAR forward over a 10-year horizon. 
+Uncertainty in the estimated IRFs is quantified through bootstrap or Monte Carlo 
+simulations, which generate confidence bands based on repeated resampling 
+of the estimated residuals. These procedures account for sampling variability 
+and small-sample bias, offering a more reliable measure of the precision of 
+dynamic effects. 
+
+\hspace{2em} Table 1 reports the VAR coefficients (own- and cross-lag effects 
 and significance), which indicate persistence and short-run predictive links that 
-generate the IRFs. 
+generate the IRFs. The VAR results suggest that GDP growth is persistent, 
+meaning past growth tends to carry forward into the next period. 
+Remittances respond positively to past GDP, indicating they rise when the domestic economy strengthens, 
+but also demonstrate slight mean reversion. 
+In contrast, FDI and ODA appear largely unaffected by recent domestic conditions, 
+implying these flows are driven more by external or structural factors than by short-term economic dynamics.
 
 \singlespacing
 
  \begin{table}[H]
   \noindent
   \centering
-  \small
   \begin{threeparttable}
   \caption{VAR coefficients}
   \label{tab:var_first4}
@@ -196,23 +246,27 @@ generate the IRFs.
   \end{tabular}
   \begin{tablenotes}[flushleft]
   \footnotesize
-  \item \textbf{Notes.} Based on OLS regressions estimated for variables measured in growth rates
-  with left-hand variable in columns (1–4) running from $t = 1977$ to $2023$.
-  The symbol * denotes statistical significance at the 10\% level, ** at 5\%, and *** at 1\%.
+  \item \textbf{Notes.} The symbol * denotes statistical significance at the 10\% level, ** at 5\%, and *** at 1\%.
   \end{tablenotes}
   \end{threeparttable}
   \end{table}
 
-\doublespacing Table 2 presents the impulse-response function (IRF) point 
-estimates at horizons $h = 0, \ldots, 10$ (along with corresponding uncertainty 
-bands), illustrating both the magnitude and duration of each variable's dynamic 
-response to shocks within the VAR system.
+\doublespacing \hspace{2em} Table 2 presents the impulse-response function (IRF) point 
+estimates at horizons $h = 0, \ldots, 10$, illustrating both the magnitude and duration of each variable's dynamic 
+response to shocks within the VAR system. The external flows can be interpreted 
+as drivers (or transmitters) of shocks that influence GDP growth over time. When these variables 
+affect GDP in subsequent periods, it reveals how external capital inflows contribute to or 
+dampen domestic economic activity. The results indicate that GDP responds most strongly to FDI shocks, 
+implying that foreign investment inflows have a meaningful and immediate impact on economic growth. Remittances exert 
+a smaller but persistent positive effect, suggesting they help support household income and 
+consumption but do not strongly drive aggregate growth. ODA, on the other hand, exhibits weak or 
+negative responses, indicating that aid flows may not translate efficiently into short-run 
+growth, possibly due to implementation delays or targeting inefficiencies.
 
 \singlespacing
 
   \begin{table}[H]
   \centering
-  \small
   \begin{threeparttable}
   \caption{Impulse responses}
   \label{tab:var_first4}
@@ -283,16 +337,15 @@ response to shocks within the VAR system.
                       
   \bottomrule
   \end{tabular}
-  \begin{tablenotes}[flushleft]
-  \footnotesize
-  \item \textbf{Notes.} The symbol * denotes statistical significance at the 10\% level, ** at 5\%, and *** at 1\%.
-  \end{tablenotes}
   \end{threeparttable}
   \end{table}
 
-\doublespacing Figure 4 displays the same impulse-response functions (IRFs) 
-with shaded confidence bands, allowing readers to visually assess the timing, 
+\doublespacing \hspace{2em} Figure 4 displays the same impulse-response functions (IRFs) 
+with shaded confidence bands, which permits visual assessessment of the timing, 
 direction, and statistical precision of the estimated dynamic responses.
+ In summary, external flows matter for GDP primarily through FDI, which fuels short-run growth 
+dynamics, while remittances provide steady, modest support and ODA appears less effective as 
+a growth stimulus.
 
 \singlespacing
  
@@ -311,30 +364,24 @@ from the time-series model with prior beliefs about the coefficients to produce 
 distribution for all model parameters. Intuitively, the Bayesian approach guards against
 overfitting in small samples by shrinking coefficient estimates toward sensible values
 (for example, toward zero for cross-variable lags and toward a random-walk unit for own
-lags) while still letting the data update those beliefs. Formally, if the reduced-form VAR
-is $y_t = c + A_1 y_{t-1} + \dots + A_p y_{t-p} + u_t$ with $u_t \sim N(0, \Sigma_u)$,
-a BVAR specifies a prior $p(c, \{A_i\}, \Sigma_u)$ and computes the posterior
-$p(c, \{A_i\}, \Sigma_u \mid \text{data}) \propto p(\text{data} \mid c, \{A_i\}, \Sigma_u)\, p(c, \{A_i\}, \Sigma_u)$.
-The posterior neatly summarizes parameter uncertainty and leads directly to posterior
-predictive distributions and credible intervals for impulse responses.
+lags) while still letting the data update those beliefs. A BVAR specifies a prior and computes the posterior,
+which neatly summarizes parameter uncertainty and leads directly to credible intervals for impulse responses.
 
-We use a Minnesota-style prior (tight shrinkage on cross-coefficients, looser on own lags)
+\hspace{2em} We use a Minnesota-style prior (tight shrinkage on cross-coefficients, looser on own lags)
 because our annual sample is modest relative to the number of parameters. Key implementation
-details are: (1) data are expressed in growth rates as in the frequentist VAR; (2) lag length
-is chosen by information criteria and stability diagnostics before estimating the BVAR; (3)
-the overall tightness and relative shrinkage hyperparameters are selected by empirical rules
-and checked for sensitivity; (4) posterior draws are obtained via the conjugate posterior or
-MCMC sampling (several thousand retained draws after burn-in) and monitored for convergence;
-(5) for each posterior draw we compute orthogonalized impulse responses using the same
-Cholesky ordering as the reduced-form VAR (GDP first) so that Bayesian IRFs are directly
-comparable to the frequentist IRFs; and (6) credible bands are formed by taking quantiles of
-the IRFs across posterior draws (for example, the 2.5th and 97.5th percentiles for 95% bands).
+details are: 
 
-The BVAR differs from the OLS VAR primarily through shrinkage: it reduces sampling variance
+\begin{enumerate}
+  \item Data are expressed in growth rates as in the  VAR;
+  \item Lag length is chosen by information criteria before estimating the BVAR;
+  \item Posterior draws are obtained via the conjugate posterior or MCMC sampling (several thousand retained draws after burn-in) and monitored for convergence;
+  \item For each posterior draw, we compute orthogonalized impulse responses using Cholesky ordering (GDP first); and, 
+  \item Credible bands are formed by taking quantiles of the IRFs across posterior draws.
+\end{enumerate}
+
+\hspace{2em} The BVAR differs from the VAR primarily through shrinkage: it reduces sampling variance
 (smoother IRFs and narrower bands) while allowing the data to dominate where information is strong.
-We report posterior diagnostics (trace plots, effective sample sizes) and stability checks for the
-companion matrix across draws to ensure robustness.Table 3 presents posterior summaries for coefficients 
-and related quantities (posterior mean, median, posterior standard deviation, credible intervals,
+Table 3 presents posterior summaries for coefficients and related quantities (posterior mean, median, posterior standard deviation, credible intervals,
 and the posterior probability a coefficient exceeds zero). 
 
 \singlespacing
@@ -404,90 +451,81 @@ if (file.exists(frag)) {
 
 \doublespacing Stationarity and structural breaks are central for time-series inference because nonstationary
 data or unmodeled breaks can produce spurious relationships and misleading impulse
-responses. We therefore apply both unit-root tests and endogenous break-detection methods
-and report summaries in Table 4.
+responses. We therefore apply both unit-root tests and endogenous break-detection methods as summarized in Table 4.
 
-Unit-root testing. We use two complementary tests for stationarity: the augmented Dickey–Fuller
-(ADF) test and the Kwiatkowski–Phillips–Schmidt–Shin (KPSS) test. These tests have
-opposite null hypotheses, which helps guard against misleading conclusions when one test
-alone is inconclusive. The ADF test has the null of a unit root (nonstationarity) and the
-alternative of stationarity; we estimate the ADF regression with an intercept and, where
-appropriate, a deterministic time trend and select the lag length via information criteria
-(AIC/BIC) and practical residual diagnostics. The KPSS test has the null of stationarity and
-the alternative of a unit root (or trend-stationarity depending on the chosen specification);
-we report KPSS statistics using a Newey–West bandwidth chosen by the usual automatic
-selection rules. When the ADF fails to reject and the KPSS rejects the null of stationarity,
-the indicators together provide evidence consistent with nonstationarity; when ADF rejects
-and KPSS does not, we interpret that as evidence in favor of stationarity.
+\begin{itemize}
+  \item \textbf{Unit-root testing.} We use two complementary tests for stationarity: the augmented Dickey–Fuller
+    (ADF) test and the Kwiatkowski–Phillips–Schmidt–Shin (KPSS) test. These tests have
+    opposite null hypotheses, which helps guard against misleading conclusions when one test
+    alone is inconclusive. The ADF test has the null of a unit root (nonstationarity) and the
+    alternative of stationarity. The KPSS test has the null of stationarity and
+    the alternative of a unit root. When the ADF fails to reject and the KPSS rejects the null of stationarity,
+    the indicators together provide evidence consistent with nonstationarity; when ADF rejects
+    and KPSS does not, we interpret that as evidence in favor of stationarity.
 
-Structural-break detection. Standard unit-root tests can be biased in the presence of
-structural breaks, so we complement them with break-aware procedures. We apply the
-Zivot–Andrews test to allow a single endogenously determined structural break in either
-the level or trend; for multiple breaks we use the Bai–Perron approach implemented via the
-`strucchange::breakpoints` routine, setting a trimming parameter (commonly 0.10–0.15 of the
-sample) and selecting the number of breaks with BIC and sequential F-tests. For each detected
-break we report the estimated break years in Table 4. Implementation is done in R using
-`urca::ur.df` for ADF variants, `tseries::kpss.test` for KPSS, `urca` or the `zoo`/`urca`
-implementations for Zivot–Andrews, and `strucchange::breakpoints` for multiple
-break detection; all test choices and tuning parameters are recorded in the code used to
-generate the output.
+  \item \textbf{Structural-break detection.} Standard unit-root tests can be biased in the presence of
+    structural breaks, so we complement them with a break-aware procedure. We use the Bai–Perron approach implemented via the
+    `strucchange::breakpoints` routine in R. For each detected break, we report the estimated break years in Table 4. 
+    
+\end{itemize}
 
-Why these choices matter for the VAR. VAR estimation and the validity of impulse responses
+\hspace{2em} VAR estimation and the validity of impulse responses
 rely on (weak) stationarity of the series. Nonstationary series can cause biased parameter
 estimates and invalid asymptotic inference. When variables are I(1) but cointegrated, a
 vector error-correction model (VECM) is the appropriate representation; when series are
 nonstationary without cointegration, first-differencing removes stochastic trends but also
 changes the interpretation of coefficients (short-run dynamics rather than levels). Structural
-breaks — for example large policy shifts or crisis years — can mimic nonstationarity or
+breaks (for example, large policy shifts or crisis years) can mimic nonstationarity or
 produce shifts in dynamics; if breaks are present we either include break dummies, estimate
 the VAR over sub-samples, or use methods that allow for time-varying parameters as a
 robustness check. In this paper, because the main flow variables are analyzed in growth rates
-(log differences) and because break tests identify only a small number of discrete breaks, our
-primary VAR specifications use growth rates while we report break years and run robustness
-specifications that include break dummies or split-sample estimations when appropriate.
+(log differences) and since break tests do not identify any breaks, our
+primary VAR specifications use growth rates.
 
-Table 4 summarizes test statistics and break dates: ADF statistic and p-value,
+\hspace{2em} Table 4 summarizes test statistics and break dates: ADF statistic and p-value,
 KPSS statistic and p-value, the number of Bai–Perron breaks found, and the estimated break
-years. For a non-specialist, the practical guidance is: (i) if ADF indicates stationarity and
+years. The practical guidance is: (i) if ADF indicates stationarity and
 KPSS does not reject stationarity, we proceed with level-based analysis; (ii) if ADF fails to
 reject a unit root while KPSS rejects stationarity, we treat the series as nonstationary and
 work with differences (or investigate cointegration); and (iii) if breaks are detected in Table 4,
 we examine whether including break dummies or estimating separate regimes changes the
-estimated IRFs materially — if so, the results are reported as robustness checks in the
-accompanying output.
+estimated IRFs materially. 
 
 \singlespacing
 
 ```
 
 ```{r stationarity_table, echo=FALSE, results='asis', eval=TRUE}
-# Include prepared LaTeX fragment for stationarity/breaks table if available,
-# otherwise fall back to building a simple LaTeX table from the CSV.
-frag_ts <- file.path('/Users/charleneramos/Documents/Git/econ220dproject/output/test_sum_table.Rmd')
+# Build the stationarity and breaks table directly from the CSV to avoid duplicated fragments.
 csvf_ts <- file.path('/Users/charleneramos/Documents/Git/econ220dproject/output/test_sum.csv')
-if (file.exists(frag_ts)) {
-  cat(readLines(frag_ts), sep = '\n')
-} else if (file.exists(csvf_ts)) {
+
+if (file.exists(csvf_ts)) {
   tab <- read.csv(csvf_ts, stringsAsFactors = FALSE)
-  cat('\\begin{table}[H]\\centering\\small\\caption{Stationarity tests and structural breaks}\\label{tab:stationarity_breaks}\\begin{adjustbox}{max width=\\textwidth}\\begin{tabular}{lrrrrcr}\\toprule\\n')
-  cat('Variable & ADF stat & ADF p-val & KPSS stat & KPSS p-val & # breaks & Break years \\\\n+')
-  cat('\\midrule\\n')
+  cat('\\begin{table}[H]\\centering\\small\\caption{Stationarity tests and structural breaks}\\label{tab:stationarity_breaks}\n')
+  cat('\\begin{adjustbox}{max width=\\textwidth}\\begin{tabular}{lrrrrcr}\\toprule\n')
+  cat('Variable & ADF stat & ADF p-val & KPSS stat & KPSS p-val & Breaks & Break years \\\\\n')
+  cat('\\midrule\n')
+
   for (i in seq_len(nrow(tab))) {
     r <- tab[i, ]
-    var <- r$variable
+    var <- escape_tex(as.character(r$variable))
     adf_stat <- ifelse(is.na(r$adf_stat), 'NA', sprintf('%.4f', as.numeric(r$adf_stat)))
     adf_p <- ifelse(is.na(r$adf_pval), 'NA', sprintf('%.3f', as.numeric(r$adf_pval)))
     kpss_stat <- ifelse(is.na(r$kpss_stat), 'NA', sprintf('%.4f', as.numeric(r$kpss_stat)))
     kpss_p <- ifelse(is.na(r$kpss_pval), 'NA', sprintf('%.3f', as.numeric(r$kpss_pval)))
     n_breaks <- ifelse(is.na(r$n_breaks), '0', as.character(r$n_breaks))
     breaks_raw <- as.character(r$break_years)
-    breaks_fmt <- ifelse(is.na(breaks_raw) || breaks_raw == 'NA', 'NA', breaks_raw)
-    cat(sprintf('%s & %s & %s & %s & %s & %s & %s \\\\n+', var, adf_stat, adf_p, kpss_stat, kpss_p, n_breaks, breaks_fmt))
+    breaks_fmt <- ifelse(is.na(breaks_raw) || breaks_raw == 'NA', 'NA', escape_tex(breaks_raw))
+    cat(sprintf('%s & %s & %s & %s & %s & %s & %s \\\\\n',
+                var, adf_stat, adf_p, kpss_stat, kpss_p, n_breaks, breaks_fmt))
   }
-  cat('\\bottomrule\\n\\end{tabular}\\end{adjustbox}\\end{table}\\n')
+
+  cat('\\bottomrule\n\\end{tabular}\\end{adjustbox}\\end{table}\n')
+
 } else {
-  cat('\\textit{Stationarity summary not found. Run `code/wdi_clean.R` to generate tests and tables.}\\n')
+  cat('\\textit{Stationarity summary not found. Run `code/wdi_clean.R` to generate tests and tables.}\n')
 }
+
 ```
 
 ```{r render, include=FALSE, eval=FALSE}

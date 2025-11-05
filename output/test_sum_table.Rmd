@@ -11,6 +11,13 @@ gfdi & -10.1907 & 0.010 & 0.2426 & 0.100 & 0 & NA \\
 goda & -3.7237 & 0.034 & 0.1246 & 0.100 & 0 & NA \\
 gremit & -3.5273 & 0.049 & 0.3420 & 0.100 & 0 & NA \\
 \hline
+Variable & ADF stat & ADF p-val & KPSS stat & KPSS p-val & Breaks & Break years \\
+\hline
+ggdp & -3.7955 & 0.028 & 0.0516 & 0.100 & 0 & NA \\
+gfdi & -10.1907 & 0.010 & 0.2426 & 0.100 & 0 & NA \\
+goda & -3.7237 & 0.034 & 0.1246 & 0.100 & 0 & NA \\
+gremit & -3.5273 & 0.049 & 0.3420 & 0.100 & 0 & NA \\
+\hline
 \end{tabular}
 \end{adjustbox}}
 \end{table}

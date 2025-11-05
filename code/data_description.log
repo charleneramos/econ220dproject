@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.11.3)  4 NOV 2025 04:39
+This is XeTeX, Version 3.141592653-2.6-0.999997 (TeX Live 2025) (preloaded format=xelatex 2025.11.3)  4 NOV 2025 08:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -893,51 +893,55 @@ LaTeX Font Info:    Trying to load font information for U+msb on input line 95.
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
-]
+] [2]
+File: /Users/charleneramos/Documents/Git/econ220dproject/output/plot_pop.png Graphic file (type bmp)
+</Users/charleneramos/Documents/Git/econ220dproject/output/plot_pop.png>
 File: /Users/charleneramos/Documents/Git/econ220dproject/output/plot_gdp.png Graphic file (type bmp)
 </Users/charleneramos/Documents/Git/econ220dproject/output/plot_gdp.png>
-[2]
-File: /Users/charleneramos/Documents/Git/econ220dproject/output/plot_fdi.png Graphic file (type bmp)
-</Users/charleneramos/Documents/Git/econ220dproject/output/plot_fdi.png>
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.4pt on input line 176.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 6.0pt on input line 176.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 12.0011pt on input line 176.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.40076pt on input line 176.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 6.00055pt on input line 176.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 11.99872pt on input line 176.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 8.3991pt on input line 176.
-LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 5.99936pt on input line 176.
 [3]
+File: /Users/charleneramos/Documents/Git/econ220dproject/output/plot_flows.png Graphic file (type bmp)
+</Users/charleneramos/Documents/Git/econ220dproject/output/plot_flows.png>
+[4]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 10.95pt on input line 212.
+(Font)              scaled to size 8.4pt on input line 209.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 8.0pt on input line 212.
+(Font)              scaled to size 6.0pt on input line 209.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 10.95099pt on input line 212.
+(Font)              scaled to size 12.0011pt on input line 209.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 8.00073pt on input line 212.
+(Font)              scaled to size 8.40076pt on input line 209.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 6.00055pt on input line 209.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 10.94882pt on input line 212.
+(Font)              scaled to size 11.99872pt on input line 209.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 7.99915pt on input line 212.
+(Font)              scaled to size 8.3991pt on input line 209.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 5.99936pt on input line 209.
+[5] [6]
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
-(Font)              scaled to size 5.0pt on input line 248.
+(Font)              scaled to size 5.0pt on input line 300.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
-(Font)              scaled to size 5.00046pt on input line 248.
+(Font)              scaled to size 5.00046pt on input line 300.
 LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
-(Font)              scaled to size 4.99947pt on input line 248.
-[4] [5]
+(Font)              scaled to size 4.99947pt on input line 300.
+[7] [8]
 File: /Users/charleneramos/Documents/Git/econ220dproject/output/plot_irf.png Graphic file (type bmp)
 </Users/charleneramos/Documents/Git/econ220dproject/output/plot_irf.png>
-[6] [7] [8] [9] [10] [11] (./data_description.bbl) [12] (./data_description.aux)
+[9] [10]
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 10.95pt on input line 445.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(1)/m/n' will be
+(Font)              scaled to size 8.0pt on input line 445.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 10.95099pt on input line 445.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(2)/m/n' will be
+(Font)              scaled to size 8.00073pt on input line 445.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 10.94882pt on input line 445.
+LaTeX Font Info:    Font shape `TU/latinmodern-math.otf(3)/m/n' will be
+(Font)              scaled to size 7.99915pt on input line 445.
+[11] [12] (./data_description.bbl [13]) [14] (./data_description.aux)
  ***********
 LaTeX2e <2025-11-01>
 L3 programming layer <2025-10-24>
@@ -948,11 +952,11 @@ LaTeX Warning: There were multiply-defined labels.
  ) 
 Here is how much of TeX's memory you used:
  20037 strings out of 470195
- 370400 string characters out of 5477363
- 929297 words of memory out of 5000000
- 48337 multiletter control sequences out of 15000+600000
- 637127 words of font info for 120 fonts, out of 8000000 for 9000
+ 370810 string characters out of 5477363
+ 929294 words of memory out of 5000000
+ 48343 multiletter control sequences out of 15000+600000
+ 637095 words of font info for 116 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
- 90i,15n,114p,368b,621s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 90i,15n,114p,368b,611s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on data_description.pdf (12 pages).
+Output written on data_description.pdf (14 pages).

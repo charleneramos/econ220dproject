@@ -224,19 +224,20 @@ pca <- prcomp(df[, c('pop','gdp','fdi','oda','remit')],
                  center = TRUE, scale. = TRUE)
 summary(pca)
 
-# Population, total
+# Population growth rate (annual percent change)
 plot_pop <- df_long[df_long$variable == 'pop', ]
-plot_pop$value_mil <- plot_pop$value / 1e6 
-plot_pop$value_bil <- plot_pop$value / 1e9 
+# compute annual percent growth using log differences scaled by 100
+plot_pop <- plot_pop[order(plot_pop$year), ]
+plot_pop$gpop_pct <- 100 * (log(plot_pop$value) - dplyr::lag(log(plot_pop$value)))
 
 png('output/plot_pop.png', width = 800, height = 600, res = 120)
 
-plot(plot_pop$year, plot_pop$value_mil, type = 'l',
-     col = 'black', lwd = 2, bty = 'l',
-     xlab = 'Year', ylab = 'Population Levels (Millions)',
-     col.axis = 'black', col.lab = 'black',
-     col.main = 'black', fg = 'black',
-     las = 1)
+plot(plot_pop$year, plot_pop$gpop_pct, type = 'l',
+  col = 'black', lwd = 2, bty = 'l',
+  xlab = 'Year', ylab = '%',
+  col.axis = 'black', col.lab = 'black',
+  col.main = 'black', fg = 'black',
+  las = 1)
 
 box(lwd = 1.2, col = "black")
 
@@ -246,19 +247,20 @@ png_pop <- image_read('output/plot_pop.png')
 png_pop <- image_trim(png_pop)
 image_write(png_pop, path = 'output/plot_pop.png')
 
-# GDP (current US$)
-plot_gdp <- df_long[df_long$variable == 'gdp', ]
-plot_gdp$value_mil <- plot_gdp$value / 1e6 
-plot_gdp$value_bil <- plot_gdp$value / 1e9 
+# Per-capita GDP growth rate (annual percent change)
+# compute per-capita GDP and then its annual percent growth using log differences
+df_pc <- df %>% dplyr::mutate(pcgdp = gdp / pop) %>% dplyr::arrange(year)
+plot_gdp <- data.frame(year = df_pc$year, pcgdp = df_pc$pcgdp)
+plot_gdp$pcgdp_grow <- 100 * (log(plot_gdp$pcgdp) - dplyr::lag(log(plot_gdp$pcgdp)))
 
 png('output/plot_gdp.png', width = 800, height = 600, res = 120)
 
-plot(plot_gdp$year, plot_gdp$value_bil, type = 'l',
-     col = 'black', lwd = 2, bty = 'l',
-     xlab = 'Year', ylab = 'Current US$ (Billions)',
-     col.axis = 'black', col.lab = 'black',
-     col.main = 'black', fg = 'black',
-     las = 1)
+plot(plot_gdp$year, plot_gdp$pcgdp_grow, type = 'l',
+  col = 'black', lwd = 2, bty = 'l',
+  xlab = 'Year', ylab = '%',
+  col.axis = 'black', col.lab = 'black',
+  col.main = 'black', fg = 'black',
+  las = 1)
 
 box(lwd = 1.2, col = "black")
 
@@ -289,6 +291,39 @@ dev.off()
 png_fdi <- image_read('output/plot_fdi.png')
 png_fdi <- image_trim(png_fdi)
 image_write(png_fdi, path = 'output/plot_fdi.png')
+
+# Plot growth rates of flows relative to GDP on a single graph: fdi/gdp, oda/gdp, remittances/gdp
+# compute ratios and then annual percent growth (log differences * 100)
+df_ratios <- df %>%
+  dplyr::arrange(year) %>%
+  dplyr::mutate(
+    fdi_gdp = ifelse(gdp == 0, NA, fdi / gdp),
+    oda_gdp = ifelse(gdp == 0, NA, oda / gdp),
+  ) %>%
+  dplyr::select(year, fdi_gdp, oda_gdp)
+
+df_ratios <- df_ratios %>%
+  dplyr::mutate(
+    g_fdi_gdp = 100 * (log(fdi_gdp) - dplyr::lag(log(fdi_gdp))),
+    g_oda_gdp = 100 * (log(oda_gdp) - dplyr::lag(log(oda_gdp))),
+  )
+
+png('output/plot_flows.png', width = 900, height = 600, res = 140)
+
+plot(df_ratios$year, df_ratios$g_fdi_gdp, type = 'l', col = '#1f77b4', lwd = 2,
+     xlab = 'Year', ylab = 'growth rate %',
+     ylim = range(df_ratios[, c('g_fdi_gdp','g_oda_gdp')], na.rm = TRUE))
+lines(df_ratios$year, df_ratios$g_oda_gdp, col = '#2ca02c', lwd = 2)
+abline(h = 0, lty = 2, col = 'darkgrey')
+legend('topright', legend = c('FDI', 'ODA'),
+       col = c('#1f77b4', '#2ca02c'), lwd = 2, bty = 'n')
+
+box(lwd = 1.2)
+dev.off()
+
+plot_flows <- image_read('output/plot_flows.png')
+plot_flows <- image_trim(plot_flows)
+image_write(plot_flows, path = 'output/plot_flows.png')
 
 # =============================================================================#
 #   III VAR and IRF analysis                                                   # 
@@ -636,9 +671,9 @@ tex_lines <- c(tex_lines, '\\end{table}')
 
 writeLines(tex_lines, con = 'output/bvar_table.Rmd')
 
-# -------------------------------
-# Stationarity and Structural Breaks
-# -------------------------------
+# =============================================================================#
+#   V Stationarity and Structural Breaks                                                      # 
+# =============================================================================#
 
 vars_to_test <- colnames(X)
 if (is.null(vars_to_test)) vars_to_test <- paste0('var', seq_len(ncol(X)))
@@ -689,42 +724,4 @@ for (v in vars_to_test) {
 
 test_sum <- do.call(rbind, test_sum)
 write.csv(test_sum, file = 'output/test_sum.csv', row.names = FALSE)
-
-# -------------------------------
-# Stationarity & Breaks LaTeX table (Rmd fragment)
-# -------------------------------
-tex_lines_ts <- c()
-tex_lines_ts <- c(tex_lines_ts, '\\begin{table}[H]')
-tex_lines_ts <- c(tex_lines_ts, '\\centering')
-tex_lines_ts <- c(tex_lines_ts, '\\caption{Testing of stationarity and structural breaks}')
-tex_lines_ts <- c(tex_lines_ts, '\\label{tab:stationarity_breaks}')
-tex_lines_ts <- c(tex_lines_ts, '{\\setlength{\\tabcolsep}{5pt}\\renewcommand{\\arraystretch}{0.95}\\small\\begin{adjustbox}{max width=\\textwidth}')
-tex_lines_ts <- c(tex_lines_ts, '\\begin{tabular}{lrrrrcr}')
-tex_lines_ts <- c(tex_lines_ts, '\\hline')
-tex_lines_ts <- c(tex_lines_ts, 'Variable & ADF stat & ADF p-val & KPSS stat & KPSS p-val & \# breaks & Break years \\\\')
-tex_lines_ts <- c(tex_lines_ts, '\\hline')
-
-for (i in seq_len(nrow(test_sum))) {
-  r <- test_sum[i, ]
-  var_label <- escape_tex(as.character(r$variable))
-  adf_stat <- ifelse(is.na(r$adf_stat), 'NA', sprintf('%.4f', as.numeric(r$adf_stat)))
-  adf_pval <- ifelse(is.na(r$adf_pval), 'NA', sprintf('%.3f', as.numeric(r$adf_pval)))
-  kpss_stat <- ifelse(is.na(r$kpss_stat), 'NA', sprintf('%.4f', as.numeric(r$kpss_stat)))
-  kpss_pval <- ifelse(is.na(r$kpss_pval), 'NA', sprintf('%.3f', as.numeric(r$kpss_pval)))
-  n_breaks <- ifelse(is.na(r$n_breaks), '0', as.character(r$n_breaks))
-  breaks_raw <- as.character(r$break_years)
-  breaks_fmt <- ifelse(is.na(breaks_raw) || breaks_raw == 'NA', 'NA', escape_tex(breaks_raw))
-
-  tex_lines_ts <- c(tex_lines_ts, sprintf('%s & %s & %s & %s & %s & %s & %s \\\\',
-                                           var_label, adf_stat, adf_pval, kpss_stat, kpss_pval, n_breaks, breaks_fmt))
-}
-
-tex_lines_ts <- c(tex_lines_ts, '\\hline')
-tex_lines_ts <- c(tex_lines_ts, '\\end{tabular}')
-tex_lines_ts <- c(tex_lines_ts, '\\end{adjustbox}}')
-tex_lines_ts <- c(tex_lines_ts, '\\end{table}')
-
-writeLines(tex_lines_ts, con = 'output/test_sum_table.Rmd')
-
-
 
